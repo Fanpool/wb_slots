@@ -64,7 +64,7 @@ class Order(models.Model):
         ordering = []
 
     def __str__(self):
-        return f'{self.customer_id} {self.box_type_id} {self.max_coefficient}'
+        return f'{self.customer_id} {self.box_type_id} c={self.max_coefficient}'
 
     def deactivate(self):
         self.is_active = False

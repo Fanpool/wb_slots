@@ -4,6 +4,7 @@ charset-normalizer==3.3.2
 Django==5.1.1
 django-object-actions==4.3.0
 idna==3.9
+psycopg2-binary==2.9.9
 python-dotenv==1.0.1
 pytz==2024.2
 requests==2.32.3
