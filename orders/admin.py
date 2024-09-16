@@ -64,10 +64,10 @@ class OrderAdmin(DjangoObjectActions, admin.ModelAdmin):
 class CompletedOrderAdmin(admin.ModelAdmin):
     search_fields = ('order__customer__username', 'order__warehouses__name', 'order__box_type__name')
     autocomplete_fields = ('order',)
-    list_display = ('order__customer', 'display_dt', 'order__box_type', 'order__max_coefficient', 'display_slot_dt', 'slot__warehouse', 'slot__coefficient')
+    list_display = ('order__customer', 'display_dt', 'order__box_type', 'order__max_coefficient', 'display_slot_dt', 'slot__warehouse', 'display_slot_K')
     list_select_related = ('order', 'order__customer', 'order__box_type', 'slot', 'slot__warehouse')
 
-    @admin.display(description='Дата')
+    @admin.display(description='Дата нахождения')
     def display_dt(self, instance):
         return f'{instance.completed_date.strftime("%d.%m.%Y %H:%M:%S")}'
     display_dt.admin_order_field = 'completed_date'
@@ -76,3 +76,13 @@ class CompletedOrderAdmin(admin.ModelAdmin):
     def display_slot_dt(self, instance):
         return f'{instance.slot.dt.strftime("%d.%m.%Y %H:%M:%S")}'
     display_dt.admin_order_field = 'slot__dt'
+
+    @admin.display(description='Max K')
+    def display_max_K(self, instance: models.CompletedOrder):
+        return f'{instance.order.max_coefficient}'
+    display_max_K.admin_order_field = 'order__max_coefficient'
+
+    @admin.display(description='Текущий K')
+    def display_slot_K(self, instance: models.CompletedOrder):
+        return f'{instance.slot.coefficient}'
+    display_slot_K.admin_order_field = 'slot__coefficient'
