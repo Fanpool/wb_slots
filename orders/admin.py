@@ -64,7 +64,7 @@ class OrderAdmin(DjangoObjectActions, admin.ModelAdmin):
 class CompletedOrderAdmin(admin.ModelAdmin):
     search_fields = ('order__customer__username', 'order__warehouses__name', 'order__box_type__name')
     autocomplete_fields = ('order',)
-    list_display = ('order__customer', 'display_dt', 'order__box_type', 'display_slot_K', 'display_slot_dt', 'slot__warehouse', 'display_slot_K')
+    list_display = ('order__customer', 'display_dt', 'order__box_type', 'display_max_K', 'display_slot_dt', 'slot__warehouse', 'display_slot_K')
     list_select_related = ('order', 'order__customer', 'order__box_type', 'slot', 'slot__warehouse')
 
     @admin.display(description='Дата нахождения')
