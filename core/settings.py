@@ -96,10 +96,12 @@ timezone.activate(pytz.timezone(TIME_ZONE))
 timezone.localtime(timezone.now())
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / "static"
+STATIC_PATH = os.environ.get("STATIC_PATH")
+STATIC_ROOT = STATIC_PATH if STATIC_PATH else BASE_DIR / "static"
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_PATH = os.environ.get("MEDIA_PATH")
+MEDIA_ROOT = MEDIA_PATH if MEDIA_PATH else BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
