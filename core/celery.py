@@ -15,12 +15,16 @@ def debug_task(self):
 
 
 app.conf.beat_schedule = {
-    'every_slots': {
+    'every_update_slots': {
         'task': 'wb.tasks.repeat_update_slots',
         'schedule': 10.0,
     },
-    'every_whs': {
+    'every_update_whs': {
         'task': 'wb.tasks.repeat_update_warehouses',
         'schedule': 60.0,
+    },
+    'every_search_slots': {
+        'task': 'orders.tasks.repeat_search_slots',
+        'schedule': 15,
     }
 }
