@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'wb',
     'orders',
+    'bot_init',
 ]
 
 MIDDLEWARE = [
@@ -106,6 +107,38 @@ MEDIA_ROOT = MEDIA_PATH if MEDIA_PATH else BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "console": {"format": "[%(name)-12s] %(levelname)-8s %(message)s"},
+        "file": {"format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"},
+    },
+    "handlers": {
+        "console": {"class": "logging.StreamHandler", "formatter": "console"},
+        "file": {
+            "level": "WARNING",
+            "class": "logging.FileHandler",
+            "formatter": "file",
+            "filename": BASE_DIR / "logs" / "debug.log",
+        },
+        "file_info": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "formatter": "file",
+            "filename": BASE_DIR / "logs" / "info.log",
+        },
+    },
+    "loggers": {
+        "": {"level": "WARNING", "handlers": ["console", "file", "file_info"]},
+        "django.request": {
+            "handlers": ["file"],
+            "propagate": False,
+            "level": "WARNING",
+        },
+    },
+}
+
 COEFFICIENTS_URL = "https://supplies-api.wildberries.ru/api/v1/acceptance/coefficients"
 WAREHOUSES_URL = "https://supplies-api.wildberries.ru/api/v1/warehouses"
 
@@ -127,3 +160,24 @@ CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+from collections import namedtuple
+
+import requests
+from requests.exceptions import ConnectionError
+
+TG_BOT = namedtuple('Bot', ['token', 'webhook_host', 'name', 'id'])
+TG_BOT.token = os.getenv('BOT_TOKEN')
+TG_BOT.webhook_host = os.getenv('HOST')
+
+try:
+    r = requests.get(f'https://api.telegram.org/bot{TG_BOT.token}/getMe').json()
+    if not r.get('ok'):
+        raise Exception('Data in .env is not valid')
+    TG_BOT.name = r['result']['username']
+    TG_BOT.id = r['result']['id']
+except ConnectionError:
+    pass
+
+print(os.getenv('ADMINS').split(','))
+TG_BOT.admins = list(map(int, os.getenv('ADMINS').split(',')))
