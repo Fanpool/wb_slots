@@ -53,7 +53,7 @@ def update_wb_slots():
                                              unique_fields=('unique_f',),
                                              batch_size=1000
                                              )
-    # b_models.SlotUpdater.objects.create(error=False)
+    wb_models.SlotUpdater.objects.create(error=False)
     return 0, ''
 
 
