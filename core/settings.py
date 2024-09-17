@@ -107,6 +107,14 @@ MEDIA_ROOT = MEDIA_PATH if MEDIA_PATH else BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+LOG_DIR = BASE_DIR / "logs"
+LOG_DEBUG_PATH = LOG_DIR / "debug.log"
+LOG_INFO_PATH = LOG_DIR / "info.log"
+
+if not os.path.exists(LOG_DIR):
+    os.mkdir(LOG_DIR)
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -120,13 +128,13 @@ LOGGING = {
             "level": "WARNING",
             "class": "logging.FileHandler",
             "formatter": "file",
-            "filename": BASE_DIR / "logs" / "debug.log",
+            "filename": LOG_DEBUG_PATH,
         },
         "file_info": {
             "level": "INFO",
             "class": "logging.FileHandler",
             "formatter": "file",
-            "filename": BASE_DIR / "logs" / "info.log",
+            "filename": LOG_INFO_PATH,
         },
     },
     "loggers": {
@@ -179,5 +187,4 @@ try:
 except ConnectionError:
     pass
 
-print(os.getenv('ADMINS').split(','))
 TG_BOT.admins = list(map(int, os.getenv('ADMINS').split(',')))
