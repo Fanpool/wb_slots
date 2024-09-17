@@ -3,6 +3,7 @@ import pytz
 import dotenv
 from pathlib import Path
 from django.utils import timezone
+from loguru import logger
 
 dotenv.load_dotenv()
 
@@ -146,6 +147,10 @@ LOGGING = {
         },
     },
 }
+
+logger.add(f"{BASE_DIR}/logs/in_data.log", filter=lambda record: record["extra"]["task"] == "write_in_data")
+logger.add(f"{BASE_DIR}/logs/out_data.log", filter=lambda record: record["extra"]["task"] == "write_out_data")
+logger.add(f"{BASE_DIR}/logs/app.log", filter=lambda record: record["extra"]["task"] == "app")
 
 COEFFICIENTS_URL = "https://supplies-api.wildberries.ru/api/v1/acceptance/coefficients"
 WAREHOUSES_URL = "https://supplies-api.wildberries.ru/api/v1/warehouses"
