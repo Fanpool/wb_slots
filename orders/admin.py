@@ -75,15 +75,21 @@ class CompletedOrderAdmin(admin.ModelAdmin):
 
     @admin.display(description='Дата слота')
     def display_slot_dt(self, instance):
+        if not instance.slot:
+            return None
         return f'{instance.slot.dt.strftime("%d.%m.%Y %H:%M:%S")}'
     display_dt.admin_order_field = 'slot__dt'
 
     @admin.display(description='Max K')
     def display_max_K(self, instance: models.CompletedOrder):
+        if not instance.order:
+            return None
         return f'{instance.order.max_coefficient}'
     display_max_K.admin_order_field = 'order__max_coefficient'
 
     @admin.display(description='Текущий K')
     def display_slot_K(self, instance: models.CompletedOrder):
+        if not instance.slot:
+            return None
         return f'{instance.slot.coefficient}'
     display_slot_K.admin_order_field = 'slot__coefficient'
