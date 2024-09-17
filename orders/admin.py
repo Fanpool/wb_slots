@@ -1,4 +1,5 @@
 from django.contrib import admin, messages
+from django.forms import forms
 from django.utils.safestring import mark_safe
 from django_object_actions import action, DjangoObjectActions
 
