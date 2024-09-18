@@ -11,8 +11,6 @@ def update_wb_slots():
         wb_models.SlotUpdater.objects.create(error=True, error_text=f'status_code = {res.status_code}.')
         return -1, f'status_code = {res.status_code}.'
     data = json.loads(res.text)
-    with open('qwe.json', 'w') as ff:
-        ff.write(res.text)
     box_type_dict = {}
     warehouse_dict = {}
     slot_objs = []
@@ -62,8 +60,6 @@ def update_wb_warehouses():
     if res.status_code != 200:
         return None
     data = json.loads(res.text)
-    with open('wh.json', 'w') as ff:
-        ff.write(res.text)
     wh_objs = []
     for item in data:
         wh_objs.append(wb_models.Warehouse(id=item["ID"],
