@@ -1,9 +1,11 @@
 from core.settings.components import config, BASE_DIR
 
+print('################ load prod')
+
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    config('DOMAIN_NAME'),
+    config('DJANGO_DOMAIN_NAME'),
     'localhost',
 ]
 

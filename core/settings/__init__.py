@@ -2,7 +2,9 @@ import os
 
 from split_settings.tools import include, optional
 
-ENV = os.getenv("ENV") or 'development'
+from core.settings.components import config
+
+ENV = config('ENV') or 'development'
 
 settings_pipeline = [
     "components/common.py",

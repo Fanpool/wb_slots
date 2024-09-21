@@ -3,6 +3,8 @@ import socket
 
 from core.settings.components import config, BASE_DIR
 
+print('################ load dev')
+
 DEBUG = True
 
 ALLOWED_HOSTS = [
