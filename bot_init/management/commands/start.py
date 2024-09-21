@@ -6,11 +6,6 @@ from bot_init.views import tbot
 log = logger.bind(task="app")
 
 
-@tbot.message_handler(commands=['help', 'start'])
-async def send_welcome(message):
-    await tbot.reply_to(message, "Бот запущен...")
-
-
 class Command(BaseCommand):
     """Команда для запуска бота в режиме long polling."""
 
