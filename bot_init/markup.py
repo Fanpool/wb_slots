@@ -73,4 +73,11 @@ class Keyboard:
 
 def get_default_keyboard():
     """Получить клавиатуру по умолчанию."""
-    ...
+    keyboard = Keyboard(
+        (
+            ("/start",),
+            ("/help",),
+            ("/rand",)
+        )
+    )
+    return keyboard.keyboard

@@ -34,18 +34,21 @@ class Answer:
             raise Exception("Не передан идентификатор чата")
         try:
             if self.keyboard:
+                print('with keyboard')
+                print(self.keyboard)
                 message = tbot.send_message(
                     chat_id=chat_id,
                     text=self.text,
                     reply_markup=self.keyboard,
                     parse_mode="HTML",
                 )
-                save_message(message, message_key=self.message_key)
+                save_message(message)
                 log.info(str(message))
                 return
+            print('without keyboard')
             message = tbot.send_message(chat_id=chat_id, text=self.text, parse_mode="HTML")
             log.info(str(message))
-            save_message(message, message_key=self.message_key)
+            save_message(message)
         except Exception as e:
             app_log.error(e)
 

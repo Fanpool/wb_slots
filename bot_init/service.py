@@ -48,7 +48,7 @@ def service_api_exception(exception, sub):
 
 def send_answer(answer: Answer, chat_id):
     """Отправить ответ."""
-    tbot.send_message(chat_id, Answer.text)
+    tbot.send_message(chat_id, answer.text)
 
 
 def do_mailing(data: dict):
@@ -60,6 +60,10 @@ def do_mailing(data: dict):
             save_message(message_instance)
         except ApiException as e:
             service_api_exception(e)
+
+
+def delete_messages(chat_id, message_id_list):
+    tbot.delete_messages(chat_id, message_id_list)
 
 
 def _create_action(subscriber: Subscriber, action: str):

@@ -11,8 +11,6 @@ class Mailing(models.Model):
 
 
 class AdminMessage(models.Model):
-    """Административные сообщения."""
-
     title = models.CharField(max_length=128, verbose_name='Навзвание')
     text = models.TextField(verbose_name='Текст сообщения')
     key = models.CharField(max_length=128, verbose_name='Ключ, по которому сообщение вызывается в коде')
@@ -27,15 +25,12 @@ class AdminMessage(models.Model):
 
 
 class Subscriber(models.Model):
-    """Модель подписчика бота."""
-
     tg_chat_id = models.IntegerField(verbose_name="Идентификатор подписчика")
     is_active = models.BooleanField(default=True, verbose_name="Подписан ли польователь на бота")
     comment = models.TextField(null=True)
     ref_info = models.CharField(max_length=128, verbose_name="Реферальный код", null=True)
 
     def __str__(self):
-        """Строковое представление."""
         return str(self.tg_chat_id)
 
     class Meta:
@@ -44,8 +39,6 @@ class Subscriber(models.Model):
 
 
 class Message(models.Model):
-    """Модель для хранения сообщеинй."""
-
     date = models.DateTimeField(null=True, verbose_name="Дата отправки")
     from_user_id = models.IntegerField(verbose_name="Идентификатор отправителя")
     message_id = models.IntegerField(verbose_name="Идентификатор сообщения")
@@ -55,7 +48,6 @@ class Message(models.Model):
     mailing = models.ForeignKey(Mailing, related_name='messages', on_delete=models.PROTECT, blank=True, null=True)
 
     def __str__(self):
-        """Строковое представление."""
         if self.from_user_id == settings.TG_BOT.id:
             return f'⬆ {self.text}'
         else:
