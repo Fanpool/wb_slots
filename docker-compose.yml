@@ -1,0 +1,98 @@
+version: "2"
+
+services:
+  nginx:
+    restart: always
+    image: nginx:1.23-alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - static_volume:/app/static
+  server:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    entrypoint: /app/docker/backend/server-entrypoint.sh
+    volumes:
+      - static_volume:/app/static
+    expose:
+      - 8000
+    env_file:
+      - "./.env"
+    environment:
+      DEBUG: "True"
+      CELERY_BROKER_URL: "redis://redis:6379/0"
+      CELERY_RESULT_BACKEND: "redis://redis:6379/0"
+      POSTGRES_HOST: wb_slots_db
+      POSTGRES_DB: wb_slots
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5432
+  worker:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    entrypoint: /app/docker/backend/worker-entrypoint.sh
+    volumes:
+      - static_volume:/app/static
+    env_file:
+      - "./.env"
+    environment:
+      DEBUG: "True"
+      CELERY_BROKER_URL: "redis://redis:6379/0"
+      CELERY_RESULT_BACKEND: "redis://redis:6379/0"
+      POSTGRES_HOST: wb_slots_db
+      POSTGRES_DB: wb_slots
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5432
+    depends_on:
+      - server
+      - redis
+  celery-beat:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    entrypoint: /app/docker/backend/beat-entrypoint.sh
+    volumes:
+      - static_volume:/app/static
+    env_file:
+      - "./.env"
+    environment:
+      DEBUG: "True"
+      CELERY_BROKER_URL: "redis://redis:6379/0"
+      CELERY_RESULT_BACKEND: "redis://redis:6379/0"
+      POSTGRES_HOST: wb_slots_db
+      POSTGRES_DB: wb_slots
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5432
+    depends_on:
+      - server
+      - redis
+  redis:
+    restart: unless-stopped
+    image: redis:7.0.5-alpine
+    expose:
+      - 6379
+  wb_slots_db:
+    image: postgres:13.0-alpine
+    restart: unless-stopped
+    container_name: wb_slots_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: wb_slots
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    expose:
+      - 5432
+    ports:
+      - 5433:5432
+volumes:
+  static_volume: {}
+  postgres_data: {}
