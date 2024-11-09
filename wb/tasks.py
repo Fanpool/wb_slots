@@ -1,6 +1,6 @@
-from core.celery import app
+from backend.core import app
 
-from wb.services import update_wb_slots, update_wb_warehouses
+from backend.wb.services import update_wb_slots, update_wb_warehouses
 
 
 @app.task(bind=True, ignore_result=True)

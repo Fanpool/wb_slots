@@ -1,7 +1,7 @@
 import pytz
 from django.utils import timezone
 
-from core.settings.components import BASE_DIR, config
+from backend.core.settings.components import BASE_DIR, config
 
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 
@@ -14,11 +14,12 @@ INSTALLED_APPS: tuple[str, ...] = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'django_object_actions',
     'django_celery_beat',
     'wb',
-    'orders',
-    'bot_init',
+    'backend.orders',
+    'backend.bot_init',
 )
 
 MIDDLEWARE: tuple[str, ...] = (
@@ -31,12 +32,13 @@ MIDDLEWARE: tuple[str, ...] = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'core.urls'
+ROOT_URLCONF = 'backend.core.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -94,7 +96,7 @@ timezone.activate(pytz.timezone(TIME_ZONE))
 timezone.localtime(timezone.now())
 
 STATIC_URL = 'static/'
-
+STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'

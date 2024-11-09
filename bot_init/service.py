@@ -3,10 +3,10 @@ from loguru import logger
 from progressbar import progressbar as pbar
 from telebot.apihelper import ApiException
 
-from bot_init.models import AdminMessage, Message, Subscriber, SubscriberAction
-from bot_init.schemas import SUBSCRIBER_ACTIONS
-from bot_init.services.answer import Answer
-from bot_init.utils import get_subscriber_by_chat_id, get_tbot_instance, save_message
+from backend.bot_init.models import AdminMessage, Message, Subscriber, SubscriberAction
+from backend.bot_init.schemas import SUBSCRIBER_ACTIONS
+from backend.bot_init.services.answer import Answer
+from backend.bot_init.utils import get_subscriber_by_chat_id, get_tbot_instance, save_message
 
 log = logger.bind(task="app")
 tbot = get_tbot_instance()

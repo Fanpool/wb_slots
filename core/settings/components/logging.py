@@ -1,4 +1,8 @@
-LOG_DIR = BASE_DIR / "logs"
+import os
+from backend.core.settings.components import BASE_DIR
+
+
+LOG_DIR = BASE_DIR.parent / "logs"
 LOG_DEBUG_PATH = LOG_DIR / "debug.log"
 LOG_INFO_PATH = LOG_DIR / "info.log"
 

@@ -1,6 +1,4 @@
-from core.settings.components import config, BASE_DIR
-
-print('################ load prod')
+from backend.core.settings.components import config, BASE_DIR
 
 DEBUG = False
 

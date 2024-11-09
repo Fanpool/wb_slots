@@ -3,7 +3,7 @@ from collections import namedtuple
 import requests
 from requests.exceptions import ConnectionError
 
-from core.settings.components import config
+from backend.core.settings.components import config
 
 TG_BOT = namedtuple('Bot', ['token', 'webhook_host', 'name', 'id'])
 TG_BOT.token = config('TBOT_TOKEN')

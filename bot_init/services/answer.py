@@ -1,7 +1,7 @@
 from loguru import logger
 
-from bot_init.markup import get_default_keyboard
-from bot_init.utils import get_tbot_instance
+from backend.bot_init.markup import get_default_keyboard
+from backend.bot_init.utils import get_tbot_instance
 
 log = logger.bind(task="write_out_data")
 app_log = logger.bind(task="app")
@@ -27,7 +27,7 @@ class Answer:
 
     def send(self, chat_id: int = None):
         """Метод для отправки ответа."""
-        from bot_init.utils import save_message
+        from backend.bot_init.utils import save_message
         if chat_id is None:
             chat_id = self.chat_id
         if chat_id is None:
@@ -54,7 +54,7 @@ class Answer:
 
     def edit(self, message_id: int, chat_id: int = None):
         """Метод для редактирования сообщения."""
-        from bot_init.utils import save_message
+        from backend.bot_init.utils import save_message
         if chat_id is None:
             chat_id = self.chat_id
         if chat_id is None:

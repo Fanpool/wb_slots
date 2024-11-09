@@ -1,7 +1,6 @@
-from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from bot_init.service import update_webhook
+from backend.bot_init.service import update_webhook
 
 
 class Command(BaseCommand):

@@ -1,8 +1,8 @@
 import datetime
 from pytz import timezone
 
-from wb import models as wb_models
-from orders import models as order_models
+from backend.wb import models as wb_models
+from backend.orders import models as order_models
 
 
 def search_slot(order: order_models.Order):

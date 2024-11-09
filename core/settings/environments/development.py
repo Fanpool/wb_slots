@@ -1,9 +1,6 @@
-import logging
 import socket
 
-from core.settings.components import config, BASE_DIR
-
-print('################ load dev')
+from backend.core.settings.components import config, BASE_DIR
 
 DEBUG = True
 

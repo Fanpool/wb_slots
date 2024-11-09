@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from loguru import logger
 
-from bot_init.views import tbot
+from backend.bot_init.views import tbot
 
 log = logger.bind(task="app")
 

@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand
 
-from wb import services
+from backend.wb import services
 
 
 class Command(BaseCommand):

@@ -1,6 +1,6 @@
-from core.celery import app
+from backend.core.celery import app
 
-from orders.services import search_slots
+from backend.orders.services import search_slots
 
 
 @app.task(bind=True)

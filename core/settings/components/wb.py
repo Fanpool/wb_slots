@@ -1,4 +1,4 @@
-from core.settings.components import config
+from backend.core.settings.components import config
 
 
 WB_TOKEN = config('WB_TOKEN')

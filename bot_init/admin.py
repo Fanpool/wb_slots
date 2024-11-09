@@ -1,14 +1,13 @@
 from django.contrib import admin
 from django.conf import settings
-from django.urls import reverse
 from django.utils.safestring import mark_safe
-from django_object_actions import DjangoObjectActions, action
+from django_object_actions import DjangoObjectActions
 
-from bot_init.models import Message, Subscriber, AdminMessage
+from backend.bot_init.models import Message, Subscriber, AdminMessage
 
 
 def tg_delete_messages(modeladmin, request, queryset):
-    from bot_init.service import delete_messages
+    from backend.bot_init.service import delete_messages
     """Функция для удаления сообщений из чата с ботом."""
     data = dict()
     for message in queryset:

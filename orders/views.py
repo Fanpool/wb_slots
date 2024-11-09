@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
-# Create your views here.
+
+class WebAppView(TemplateView):
+    template_name = 'orders/templates/orders/webapp.html'

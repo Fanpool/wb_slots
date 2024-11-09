@@ -2,7 +2,7 @@ import requests
 import json
 from django.conf import settings
 
-from wb import models as wb_models
+from backend.wb import models as wb_models
 
 
 def update_wb_slots():

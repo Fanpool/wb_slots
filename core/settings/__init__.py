@@ -1,8 +1,6 @@
-import os
-
 from split_settings.tools import include, optional
 
-from core.settings.components import config
+from backend.core.settings.components import config
 
 ENV = config('ENV') or 'development'
 
@@ -11,6 +9,7 @@ settings_pipeline = [
     "components/celery.py",
     "components/mail.py",
     "components/logging.py",
+    "components/rest_framework.py",
     "components/telegram.py",
     "components/wb.py",
     optional(f"environments/{ENV}.py"),

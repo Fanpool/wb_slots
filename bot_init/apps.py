@@ -4,4 +4,4 @@ from django.apps import AppConfig
 class BotInitConfig(AppConfig):
     """Конфиг приложения."""
 
-    name = 'bot_init'
+    name = 'backend.bot_init'

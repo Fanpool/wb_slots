@@ -6,7 +6,7 @@ from django.utils.timezone import make_aware
 from loguru import logger
 from telebot import TeleBot
 
-from bot_init.models import Message, Subscriber
+from backend.bot_init.models import Message, Subscriber
 
 log = logger.bind(task="app")
 

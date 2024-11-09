@@ -4,10 +4,10 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from loguru import logger
 
-from bot_init.service import registration_subscriber
-from bot_init.markup import InlineKeyboard, Keyboard
-from bot_init.services.answer import Answer
-from bot_init.utils import get_tbot_instance, save_message
+from backend.bot_init.service import registration_subscriber
+from backend.bot_init.markup import InlineKeyboard
+from backend.bot_init.services.answer import Answer
+from backend.bot_init.utils import get_tbot_instance, save_message
 from django.conf import settings
 
 token = settings.TG_BOT.token

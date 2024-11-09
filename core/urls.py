@@ -5,8 +5,10 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('orders/', include('backend.orders.urls', namespace='orders')),
     path('admin/', admin.site.urls),
-    path('', include('bot_init.urls'))
+    path('', include('backend.bot_init.urls'))
 ]
 
 if settings.DEBUG:

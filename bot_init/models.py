@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 
-from bot_init.schemas import SUBSCRIBER_ACTIONS
+from backend.bot_init.schemas import SUBSCRIBER_ACTIONS
 
 
 class Mailing(models.Model):
